@@ -3,7 +3,9 @@ ReadIndicatorPort       equ 12
 RamStartAddress         equ 3072
 RamEndAddress           equ 4096
 RamSize                 equ RamEndAddress - RamStartAddress
-RomSize                 equ 1024
+RomStartAddress         equ 0
+RomModuleSize           equ 1024
+BinDumpFileName         equ "memory_test.bin"
 
 TestByteValue1          equ 0
 TestByteValue2          equ 255
@@ -27,7 +29,7 @@ setIndicators           macro(value)
                         out (ReadIndicatorPort), a
                         mend
 
-                        org 0
+                        org RomStartAddress
                         jr InitCtc
 
                         org 16h
@@ -134,4 +136,5 @@ CT3_ZERO:
                         setIndicators(0)        ; turn indicators off
                         reti                    ; return without re-enabling interrupts
 
-output_bin      "memory_test.bin", 0, RomSize
+
+output_bin      BinDumpFileName, RomStartAddress, RomModuleSize
