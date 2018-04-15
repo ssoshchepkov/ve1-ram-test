@@ -3,6 +3,7 @@ ReadIndicatorPort       equ 12
 RamStartAddress         equ 3072
 RamEndAddress           equ 4096
 RamSize                 equ RamEndAddress - RamStartAddress
+RomSize                 equ 1024
 
 TestByteValue1          equ 0
 TestByteValue2          equ 255
@@ -132,3 +133,5 @@ Error:
 CT3_ZERO:
                         setIndicators(0)        ; turn indicators off
                         reti                    ; return without re-enabling interrupts
+
+output_bin      "memory_test.bin", 0, RomSize
